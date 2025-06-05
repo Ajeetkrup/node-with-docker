@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Profile</title>
+</head>
+<body>
+  <h1>Edit <%= user.name %>'s Profile</h1>
+  <form action="/api/users/<%= user._id %>/edit" method="POST">
+    <label>Name:</label><br>
+    <input type="text" name="name" value="<%= user.name %>" required><br><br>
+
+    <label>Email:</label><br>
+    <input type="email" name="email" value="<%= user.email %>" required><br><br>
+
+    <label>Bio:</label><br>
+    <textarea name="bio"><%= user.bio %></textarea><br><br>
+
+    <button type="submit">Save Changes</button>
+  </form>
+</body>
+</html>
