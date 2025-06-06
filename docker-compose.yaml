@@ -1,6 +1,8 @@
 services:
   app:
     build: .
+    ports:
+      - "3000:3000"
     depends_on: 
       - mongo
     environment:
@@ -15,4 +17,4 @@ services:
       - mongodb-data:/data/db
 
 volumes:
-  mongo-data:
+  mongodb-data:
