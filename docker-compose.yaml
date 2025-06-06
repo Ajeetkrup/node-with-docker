@@ -1,13 +1,21 @@
 services:
   app:
-    build: .
+    image: ajeetkrup1234/user-management-app:1.0.1
     ports:
       - "3000:3000"
     depends_on: 
       - mongo
     environment:
+      - NODE_ENV=production
+      - VERSION=1.0.0
       - MONGODB_URI=mongodb://mongo:27017/userdb
-    restart: always
+    restart: unless-stopped
+    # 🩺 Health check override (optional)
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   mongo:
     image: mongo
@@ -15,6 +23,7 @@ services:
       - "27017:27017"
     volumes: 
       - mongodb-data:/data/db
+    restart: unless-stopped
 
 volumes:
   mongodb-data:
